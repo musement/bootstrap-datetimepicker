@@ -165,13 +165,9 @@
             },
 
             getDatePickerTemplate = function () {
-
-
-                var preHeadTemplate = options.headTemplate ? options.headTemplate : "",
-                    preFooterTemplate = options.footerTemplate ?  options.footerTemplate: "";
-
-
-                var headTemplate = $('<thead>')
+                var preHeadTemplate = options.headTemplate ? options.headTemplate : '',
+                    preFooterTemplate = options.footerTemplate ?  options.footerTemplate : '',
+                    headTemplate = $('<thead>')
                         .append($('<tr>')
                             .append($('<th>').addClass('prev').attr('data-action', 'previous')
                                 .append($('<span>').addClass(options.icons.previous))
@@ -717,8 +713,8 @@
                     if (currentDate.day() === 0 || currentDate.day() === 6) {
                         clsName += ' weekend';
                     }
-                    if(startRange && endRange) {
-                        if (currentDate.isAfter(startRange.subtract(1,'m')) && currentDate.isBefore(endRange.add(1, 'm'))) {
+                    if (startRange && endRange) {
+                        if (currentDate.isAfter(startRange.subtract(1, 'm')) && currentDate.isBefore(endRange.add(1, 'm'))) {
                             clsName += ' range';
                         }
                     }
@@ -855,14 +851,14 @@
                     input.val(date.format(actualFormat));
                     element.data('date', date.format(actualFormat));
                     unset = false;
-                    if(options.rangePicker) {
+                    if (options.rangePicker) {
                         //first click
-                        if(oldDate == null) {
+                        if (oldDate === null) {
                             startRange = date;
                         //range selected
-                        } else if(endRange == null) {
+                        } else if (endRange === null) {
                             startRange = oldDate;
-                            if(startRange < date) {
+                            if (startRange < date) {
                                 endRange = date;
                             }
                         } else {
@@ -874,7 +870,6 @@
                             start: startRange,
                             end: endRange
                         });
-
                     } else {
                         update();
                         notifyEvent({
@@ -883,8 +878,6 @@
                             oldDate: oldDate
                         });
                     }
-
-
                 } else {
                     if (!options.keepInvalid) {
                         input.val(unset ? '' : date.format(actualFormat));
@@ -923,7 +916,7 @@
                 widget.off('click', '[data-action]');
                 widget.off('mousedown', false);
 
-                if(options.rangePicker){
+                if (options.rangePicker) {
                     widget.off('mouseover', '[data-action]');
                 }
 
@@ -1162,27 +1155,24 @@
                 },
 
                 //when range option is enable highlight range
-                highlight: function(e, $el, widget) {
-
-                    if(endRange !== null) {
+                highlight: function (e, $el, widget) {
+                    if (endRange !== null) {
                         return;
                     }
 
-                    var currentDate = moment($el.data('day'));
+                    var currentDate = moment($el.data('day')),
+                        $days = widget.find('.day[data-action]'),
+                        $startRange = $days.filter('.day.active');
 
-                    var $days = widget.find('.day[data-action]');
-                    var $startRange = $days.filter('.day.active');
-
-                    if(!$startRange.size()){
+                    if (!$startRange.size()) {
                         //in case i've changed the month, select the first date as start
                         $startRange = $days.eq(0);
                     }
 
-                    if(startRange && startRange < currentDate) {
+                    if (startRange && startRange < currentDate) {
                         $days.removeClass('highlight');
                         $days.slice($days.index($startRange), $days.index($el)).addClass('highlight');
                     }
-
                 },
 
                 close: hide
@@ -1245,13 +1235,13 @@
                 $(window).on('resize', place);
                 widget.on('click', '[data-action]', doAction); // this handles clicks on the widget
                 widget.on('mousedown', false);
-                if(options.rangePicker) {
-                    widget.on('mouseover', '[data-action]', function(e){
+                if (options.rangePicker) {
+                    widget.on('mouseover', '[data-action]', function (e) {
                         var $el = $(e.currentTarget);
                         if ($el.is('.disabled')) {
                             return false;
                         }
-                        actions.highlight(e,$el,widget);
+                        actions.highlight(e, $el, widget);
                         return false;
                     });
                 }
@@ -2328,13 +2318,13 @@
             return picker;
         };
 
-        picker.headTemplate = function() {
+        picker.headTemplate = function () {
             return picker;
         };
-        picker.footerTemplate = function() {
+        picker.footerTemplate = function () {
             return picker;
         };
-        picker.rangePicker = function() {
+        picker.rangePicker = function () {
             return picker;
         };
 
