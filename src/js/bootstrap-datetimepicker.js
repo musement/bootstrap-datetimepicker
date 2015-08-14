@@ -1160,7 +1160,7 @@
                         return;
                     }
 
-                    var currentDate = moment($el.data('day')),
+                    var currentDate = moment($el.data('day'), ['L']),
                         $days = widget.find('.day[data-action]'),
                         $startRange = $days.filter('.day.active');
 
