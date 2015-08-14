@@ -1164,6 +1164,10 @@
                 //when range option is enable highlight range
                 highlight: function(e, $el, widget) {
 
+                    if(endRange !== null) {
+                        return;
+                    }
+
                     var currentDate = moment($el.data('day'));
 
                     var $days = widget.find('.day[data-action]');
