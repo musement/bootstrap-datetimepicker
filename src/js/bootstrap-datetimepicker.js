@@ -714,7 +714,8 @@
                         clsName += ' weekend';
                     }
                     if (startRange && endRange) {
-                        if (currentDate.isAfter(startRange.subtract(1, 'm')) && currentDate.isBefore(endRange.add(1, 'm'))) {
+
+                        if (currentDate.isSame(startRange.startOf('day')) || currentDate.isAfter(startRange.startOf('day')) && currentDate.isBefore(endRange.endOf('day'))) {
                             clsName += ' range';
                         }
                     }
@@ -1156,11 +1157,11 @@
 
                 //when range option is enable highlight range
                 highlight: function (e, $el, widget) {
+
                     if (endRange !== null) {
                         return;
                     }
-
-                    var currentDate = moment($el.data('day'), ['L']),
+                    var currentDate = moment($el.data('day'),['MM/DD/YYYY']),
                         $days = widget.find('.day[data-action]'),
                         $startRange = $days.filter('.day.active');
 
@@ -1169,7 +1170,7 @@
                         $startRange = $days.eq(0);
                     }
 
-                    if (startRange && startRange < currentDate) {
+                    if (startRange && startRange.isBefore(currentDate)) {
                         $days.removeClass('highlight');
                         $days.slice($days.index($startRange), $days.index($el)).addClass('highlight');
                     }
