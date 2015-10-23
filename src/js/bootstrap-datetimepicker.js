@@ -167,14 +167,16 @@
             getDatePickerTemplate = function () {
                 var preHeadTemplate = options.headTemplate ? options.headTemplate : '',
                     preFooterTemplate = options.footerTemplate ?  options.footerTemplate : '',
+                    prevArrow = !options.doubleCalendar ? $('<span>').addClass(options.icons.previous): '',
+                    nextArrow = !options.doubleCalendar ? $('<span>').addClass(options.icons.next): '',
                     headTemplate = $('<thead>')
                         .append($('<tr>')
                             .append($('<th>').addClass('prev').attr('data-action', 'previous')
-                                .append($('<span>').addClass(options.icons.previous))
+                                .append(prevArrow)
                                 )
                             .append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', (options.calendarWeeks ? '6' : '5')))
                             .append($('<th>').addClass('next').attr('data-action', 'next')
-                                .append($('<span>').addClass(options.icons.next))
+                                .append(nextArrow)
                                 )
                             ),
                     contTemplate = $('<tbody>')
@@ -316,6 +318,7 @@
 
                 if (options.inline) {
                     template.removeClass('dropdown-menu');
+                    dateView.addClass('big');
                 }
 
                 if (use24Hours) {
@@ -1015,6 +1018,7 @@
                     if ($(e.target).is('.new')) {
                         day.add(1, 'M');
                     }
+
                     setValue(day.date(parseInt($(e.target).text(), 10)));
                     if (!hasTime() && !options.keepOpen && !options.inline) {
                         hide();
@@ -2328,6 +2332,9 @@
         picker.rangePicker = function () {
             return picker;
         };
+        picker.doubleCalendar = function() {
+            return picker;
+        }
 
         // initializing element and component attributes
         if (element.is('input')) {
@@ -2409,6 +2416,7 @@
         enabledDates: false,
         headTemplate: false,
         footerTemplate: false,
+        doubleCalendar: false,
         icons: {
             time: 'glyphicon glyphicon-time',
             date: 'glyphicon glyphicon-calendar',
